@@ -2,13 +2,12 @@
 
 namespace BileMoBundle\Controller;
 
-use BileMoBundle\Entity\Feature;
-use BileMoBundle\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\View;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class BileMoController extends Controller
 {
@@ -31,7 +30,7 @@ class BileMoController extends Controller
      * )
      * @Rest\View(StatusCode = 201)
      */
-    public function createFeatureCategoryAction($request)
+    public function createFeatureCategoryAction(Request $request)
     {
         $data = $this->get('jms_serializer')->deserialize($request->getContent(), 'array', 'json');
 

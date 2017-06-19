@@ -2,34 +2,39 @@
 
 namespace ClientBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations\View;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class ClientController extends Controller
 {
-    /**
-     * @Rest\Get("/users")
-     */
+	/**
+	 * @Get(
+	 *     path = "/",
+	 *     name = "app_users_index",
+	 * )
+	 * @View
+	 */
     public function indexUserAction()
     {
-        $tmp = $this->get("bilemo_service")->getAllPhone();
-        echo var_dump($tmp);
-        return $this->render('BileMoBundle:Default:index.html.twig');
+       
+        return $this->render('ClientBundle:Default:index.html.twig');
     }
 
     /**
-     * @Rest\Get("/users/{id}")
+     * @Get("/users/{id}")
      */
     public function detailUserAction($id)
     {
-        $tmp = $this->get("bilemo_service")->getAllPhone();
-        echo var_dump($tmp);
-        return $this->render('BileMoBundle:Default:index.html.twig');
+       
+        return $this->render('ClientBundle:Default:index.html.twig');
     }
 
     /**
      * @Post(
-     *    path = "/users",
+     *    path = "/",
      *    name = "app_user_create"
      * )
      * @View(StatusCode = 201)
@@ -37,8 +42,7 @@ class ClientController extends Controller
      */
     public function addUserAction(User $user)
     {
-        $this->get("bilemo_service")->getAllPhone();
-
+   
         return $user;
     }
 }

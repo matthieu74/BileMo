@@ -1,7 +1,7 @@
 client:
     resource: "@ClientBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /users
 
 bile_mo:
     resource: "@BileMoBundle/Controller/"

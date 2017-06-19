@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
  * User
  *
  * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="BileMoBundle\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="ClientBundle\Repository\UserRepository")
  */
 
 class User
@@ -36,7 +36,7 @@ class User
     private $mail;
 	
 	/**
-	 * @ORM\ManyToOne(targetEntity="BileMoBundle\Entity\Client")
+	 * @ORM\ManyToOne(targetEntity="ClientBundle\Entity\Client")
 	 * @ORM\JoinColumn(nullable=false)
 	 */
 	private $client;
