@@ -1,6 +1,6 @@
 <?php
 
-namespace BileMoBundle\Repository;
+namespace ClientBundle\Repository;
 
 /**
  * UserRepository

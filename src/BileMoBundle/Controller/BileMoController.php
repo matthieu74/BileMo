@@ -23,19 +23,7 @@ class BileMoController extends Controller
     	return $this->get("bilemo_service")->getAllPhone();
     }
 
-    /**
-     * @Post(
-     *    path = "/features/Categories",
-     *    name = "app_feature_create"
-     * )
-     * @Rest\View(StatusCode = 201)
-     */
-    public function createFeatureCategoryAction(Request $request)
-    {
-        $data = $this->get('jms_serializer')->deserialize($request->getContent(), 'array', 'json');
 
-        return $this->get("bilemo_service")->addFeatureCategoy($data);
-    }
 
     /**
      * @Get(
@@ -59,9 +47,7 @@ class BileMoController extends Controller
      */
     public function detailPhoneAction($id)
     {
-    	$tmp = $this->get("bilemo_service")->getAllPhone();
-    	echo var_dump($id);
-    	return $this->render('BileMoBundle:Default:index.html.twig');
+    	return $this->get("bilemo_service")->getDetailPhone($id);
     }
     
 

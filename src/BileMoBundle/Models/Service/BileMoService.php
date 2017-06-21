@@ -14,21 +14,11 @@ class BileMoService
 		$this->fm = $fm;
 	}
 	
-	
 	public function getAllPhone()
 	{
-		return $this->em ->getRepository('BileMoBundle:Phone')->findBy(array(), array('name' => 'ASC'));
+		return $this->em->getRepository('BileMoBundle:Phone')->findBy(array(), array('name' => 'ASC'));
 	}
 	
-	
-	public function addUser($user)
-	{
-		$this->em= $this->getDoctrine()->getManager();
-		
-		$this->em->persist($user);
-		$this->em->flush();
-	}
-
 	public function addFeatureCategoy($data)
     {
         $featureCategory = new FeatureCategory();
@@ -38,5 +28,16 @@ class BileMoService
 
         $this->em->persist($featureCategory);
         $this->em->flush();
+    }
+    
+    public function getAllFeaturesCategories()
+    {
+    	return $this->em->getRepository('BileMoBundle:FeatureCategory')->findBy(array(), array('name' => 'ASC'));
+    }
+    
+    public function getDetailPhone($id)
+    {
+    	$p = $this->em->getRepository('BileMoBundle:Phone')->find($id);
+    	return $p;
     }
 }
