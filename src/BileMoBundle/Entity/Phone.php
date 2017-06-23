@@ -2,14 +2,28 @@
 namespace BileMoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Validator\Constraints as Assert;
+use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * Phone
  *
- * @ORM\Table(name="phone")
  * @ORM\Entity(repositoryClass="BileMoBundle\Repository\PhoneRepository")
+ * @ORM\Table(name="phone")
+ *
+ * 
+ * @Hateoas\Relation(
+ *      "self",
+ *      href = @Hateoas\Route(
+ *          "app_phones_detail",
+ *          parameters = { "id" = "expr(object.getId())" },
+ *          absolute = true
+ *      ),
+ *       exclusion = @Hateoas\Exclusion(groups={"detail", "list"})
+ * )
+ *
  */
-
 class Phone
 {
 	/**
@@ -18,6 +32,10 @@ class Phone
 	 * @ORM\Column(name="id", type="integer")
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="AUTO")
+	 * 
+	 * @Serializer\Since("1.0")
+	 * @Serializer\Groups({"detail", "list"})
+	 * 
 	 */
 	private $id;
 	
@@ -25,6 +43,12 @@ class Phone
 	 * @var string
 	 *
 	 * @ORM\Column(name="name", type="string", length=255)
+	 * 
+	 * @Assert\NotBlank
+	 * 
+	 * @Serializer\Since("1.0")
+	 * @Serializer\Groups({"detail", "list"})
+	 * 
 	 */
 	private $name;
 
@@ -32,12 +56,21 @@ class Phone
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * 
+     * @Assert\NotBlank
+     * 
+     * @Serializer\Since("1.0")
+     * @Serializer\Groups({"detail"})
+     * 
      */
     private $description;
 	
 	/**
 	 * @ORM\ManyToMany(targetEntity="BileMoBundle\Entity\Feature")
 	 * @ORM\JoinColumn(nullable=false)
+	 * 
+	 * @Serializer\Since("1.0")
+	 * @Serializer\Groups({"detail"})
 	 */
 	private $feature;
 
@@ -46,6 +79,10 @@ class Phone
 	/**
 	 * @ORM\ManyToOne(targetEntity="BileMoBundle\Entity\PhoneBrand")
 	 * @ORM\JoinColumn(nullable=false)
+	 * 
+	 * @Serializer\Since("1.0")
+	 * @Serializer\Groups({"detail", "list"})
+	 * 
 	 */
 	private $phoneBrand;
 	
@@ -54,6 +91,10 @@ class Phone
 	 * @var float
 	 *
 	 * @ORM\Column(name="price_excl_tax", type="float")
+	 * 
+	 * @Serializer\Since("1.0")
+	 * @Serializer\Groups({"detail"})
+	 * 
 	 */
 	private $priceExclTax;
 	
@@ -62,6 +103,10 @@ class Phone
 	 * @var float
 	 *
 	 * @ORM\Column(name="price_incl_tax", type="float")
+	 * 
+	 * @Serializer\Since("1.0")
+	 * @Serializer\Groups({"detail"})
+	 * 
 	 */
 	private $priceInclTax;
 

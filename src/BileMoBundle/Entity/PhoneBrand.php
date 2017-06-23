@@ -2,7 +2,8 @@
 namespace BileMoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as Serializer;
 /**
  * PhoneBrand
  *
@@ -18,6 +19,9 @@ class PhoneBrand
 	 * @ORM\Column(name="id", type="integer")
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="AUTO")
+	 * 
+	 * @Serializer\Since("1.0")
+	 * @Serializer\Groups({"detail", "list"})
 	 */
 	private $id;
 	
@@ -26,6 +30,9 @@ class PhoneBrand
 	 * @var string
 	 *
 	 * @ORM\Column(name="name", type="string", length=255)
+	 * 
+	 * @Serializer\Since("1.0")
+	 * @Serializer\Groups({"detail", "list"})
 	 */
 	private $name;
 
@@ -34,6 +41,10 @@ class PhoneBrand
      * @var string
      *
      * @ORM\Column(name="country", type="string", length=255)
+     * 
+     * @Serializer\Since("1.0")
+     * @Serializer\Groups({"detail", "list"})
+     * 
      */
     private $country;
 

@@ -2,6 +2,9 @@
 namespace ClientBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Validator\Constraints as Assert;
+use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * Client
@@ -18,6 +21,10 @@ class Client
 	 * @ORM\Column(name="id", type="integer")
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="AUTO")
+	 * 
+	 * @Serializer\Since("1.0")
+	 * @Serializer\Groups({"list","detail"})
+	 * 
 	 */
 	private $id;
 	
@@ -26,6 +33,9 @@ class Client
 	 * @var string
 	 *
 	 * @ORM\Column(name="name", type="string", length=255)
+	 * 
+	 * @Serializer\Since("1.0")
+	 * @Serializer\Groups({"detail"})
 	 */
 	private $name;
 
@@ -34,6 +44,9 @@ class Client
      * @var int
      *
      * @ORM\Column(name="phone_number", type="integer")
+     * 
+     * @Serializer\Since("1.0")
+     * @Serializer\Groups({"detail"})
      */
 	private $phoneNumber;
 
@@ -41,6 +54,9 @@ class Client
      * @var string
      *
      * @ORM\Column(name="address1", type="string", length=255)
+     * 
+     * @Serializer\Since("1.0")
+     * @Serializer\Groups({"detail"})
      */
     private $address;
 
@@ -48,6 +64,9 @@ class Client
      * @var string
      *
      * @ORM\Column(name="city", type="string", length=255)
+     * 
+     * @Serializer\Since("1.0")
+     * @Serializer\Groups({"detail"})
      */
     private $city;
 
@@ -55,6 +74,9 @@ class Client
      * @var string
      *
      * @ORM\Column(name="country", type="string", length=255)
+     * 
+     * @Serializer\Since("1.0")
+     * @Serializer\Groups({"detail"})
      */
     private $country;
 
@@ -63,6 +85,9 @@ class Client
      * @var int
      *
      * @ORM\Column(name="postal_code", type="integer")
+     * 
+     * @Serializer\Since("1.0")
+     * @Serializer\Groups({"detail"})
      */
     private $postalCode;
 

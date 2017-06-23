@@ -19,14 +19,9 @@ class BileMoService
 		return $this->em->getRepository('BileMoBundle:Phone')->findBy(array(), array('name' => 'ASC'));
 	}
 	
-	public function addFeatureCategoy($data)
+	public function addFeatureCategoy($featureCategory)
     {
-        $featureCategory = new FeatureCategory();
-        $form = $this->fm->create(FeatureCategoryType::class, $featureCategory);
-        $form->submit($data);
-
-
-        $this->em->persist($featureCategory);
+      	$this->em->persist($featureCategory);
         $this->em->flush();
     }
     

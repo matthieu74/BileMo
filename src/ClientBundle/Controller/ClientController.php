@@ -5,6 +5,7 @@ namespace ClientBundle\Controller;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\View;
+use FOS\RestBundle\Controller\FOSRestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use ClientBundle\Entity\User;
@@ -25,12 +26,13 @@ class ClientController extends Controller
 		return $this->get('client_service')->addUser($user);
 	}
 	
+	
 	/**
 	 * @Get(
 	 *     path = "/users",
 	 *     name = "app_users_index",
 	 * )
-	 * @View
+	 * @View(serializerGroups={"list"})
 	 */
     public function indexUserAction()
     {
@@ -44,7 +46,7 @@ class ClientController extends Controller
      *     name = "app_user_detail",
      *     requirements = {"id"="\d+"}
      * )
-     * @View
+     * @View(serializerGroups={"detail"})
      */
     public function detailUserAction($id)
     {
