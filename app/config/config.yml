@@ -100,3 +100,9 @@ fos_rest:
         rules:
             # setting fallback_format to json means that instead of considering the next rule in case of a priority mismatch, json will be used
             - { path: '^/', priorities: ['json'], fallback_format: 'json' }
+nelmio_api_doc: ~
+lexik_jwt_authentication:
+    private_key_path: %kernel.root_dir%/../var/jwt/private.pem
+    public_key_path:  %kernel.root_dir%/../var/jwt/public.pem
+    pass_phrase:      %jwt_key_pass_phrase%
+    token_ttl:        3600

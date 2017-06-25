@@ -7,3 +7,6 @@ bile_mo:
     resource: "@BileMoBundle/Controller/"
     type:     annotation
     prefix:   /
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc

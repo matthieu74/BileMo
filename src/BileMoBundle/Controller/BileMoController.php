@@ -11,7 +11,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\ConstraintViolationList;
+use Nelmio\ApiDocBundle\Annotation as Doc;
 
+
+/**
+ * @Security("is_granted('ROLE_USER')")
+ */
 class BileMoController extends FOSRestController
 {
     /**
@@ -20,9 +25,18 @@ class BileMoController extends FOSRestController
      *     name = "app_phones_index",
      * )
      * @View(serializerGroups={"list"})
+     *
+     *
+     * @Doc\ApiDoc(
+     *     resource=true,
+     *     description="Get the list of all phones."
+     * )
      */
+
+*/
     public function indexPhonesAction()
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
     	return $this->get("bilemo_service")->getAllPhone();
     }
 
@@ -31,6 +45,15 @@ class BileMoController extends FOSRestController
      * @Post("/features/Categories")
      * @View(StatusCode = 201)
      * @ParamConverter("featureCat", converter="fos_rest.request_body")
+     *
+     * @Doc\ApiDoc(
+     *     resource=true,
+     *     description="Create a category of feature."
+     *      statusCodes={
+     *         201="Returned when created",
+     *         400="Returned when a violation is raised by validation"
+     *     }
+     * )
      */
     public function createFeatureCategoryAction(FeatureCategory $featureCat, ConstraintViolationList $violations)
     {
@@ -61,6 +84,20 @@ class BileMoController extends FOSRestController
      *     requirements = {"id"="\d+"}
      * )
      * @View(serializerGroups={"detail"})
+     *
+     * @Doc\ApiDoc(
+     *     resource=true,
+     *     description="Get one phone with detail.",
+     *     requirements={
+     *         {
+     *             "name"="id",
+     *             "dataType"="integer",
+     *             "requirements"="\d+",
+     *             "description"="The phone unique identifier."
+     *         }
+     *     }
+     * )
+     *
      */
     public function detailPhoneAction($id)
     {
