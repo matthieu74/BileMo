@@ -1,0 +1,4 @@
+services:
+    client_service:
+        class: ClientBundle\Models\Service\ClientService
+        arguments: [ "@doctrine.orm.entity_manager", "@form.factory" , "@service_container" ]

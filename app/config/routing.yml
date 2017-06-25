@@ -1,0 +1,9 @@
+client:
+    resource: "@ClientBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+bile_mo:
+    resource: "@BileMoBundle/Controller/"
+    type:     annotation
+    prefix:   /
