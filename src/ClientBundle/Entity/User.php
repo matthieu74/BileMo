@@ -1,6 +1,7 @@
 <?php
 namespace ClientBundle\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -25,7 +26,7 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * 
  */
 
-class User
+class User implements UserInterface
 {
 	/**
 	 * @var int
@@ -42,7 +43,7 @@ class User
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="name", type="string", length=255)
+	 * @ORM\Column(name="username", type="string", length=255)
 	 * 
 	 * @Assert\NotBlank
 	 * 
@@ -50,17 +51,24 @@ class User
 	 * @Serializer\Groups({"list", "detail"})
 	 * 
 	 */
-	private $name;
+	private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mail", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255)
      * 
      * @Serializer\Since("2.0")
      * @Serializer\Groups({"detail"})
      */
-    private $mail;
+    private $email;
+    
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $password;
+    
+    protected $plainPassword;
 	
 	/**
 	 * @ORM\ManyToOne(targetEntity="ClientBundle\Entity\Client")
@@ -82,17 +90,17 @@ class User
     /**
      * @return string
      */
-    public function getName()
+    public function getUsername()
     {
-        return $this->name;
+        return $this->username;
     }
 
     /**
      * @param string $name
      */
-    public function setName($name)
+    public function setUsername($username)
     {
-        $this->name = $name;
+    	$this->username= $username;
     }
 
     /**
@@ -125,6 +133,36 @@ class User
     public function setClient($client)
     {
         $this->client = $client;
+    }
+    
+    
+    public function getPassword()
+    {
+    	return $this->password;
+    }
+    
+    public function setPassword($password)
+    {
+    	$this->password = $password;
+    }
+    
+    
+    public function getRoles()
+    {
+    	return [];
+    }
+    
+    public function getSalt()
+    {
+    	return null;
+    }
+    
+   
+    
+    public function eraseCredentials()
+    {
+    	// Suppression des données sensibles
+    	$this->plainPassword = null;
     }
 
 

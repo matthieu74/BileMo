@@ -3,6 +3,7 @@
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use FOS\RestBundle\FOSRestBundle;
+use AuthBundle\AuthBundle;
 
 class AppKernel extends Kernel
 {
@@ -23,6 +24,7 @@ class AppKernel extends Kernel
             new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
             new BileMoBundle\BileMoBundle(),
             new ClientBundle\ClientBundle(),
+        	new AuthBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

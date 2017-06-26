@@ -24,9 +24,10 @@ class ClientService
 		return $this->em->getRepository('ClientBundle:User')->find($id);
 	}
 	
-	public function addUser($user)
+	public function addUser($user, $encoder)
 	{
-		
+		$encoded = $encoder->encodePassword($user, $user->getPlainPassword());
+		$user->setPassword($encoded);
 		$client  = $this->em->getRepository('ClientBundle:Client')->find(1);
 		$user->setClient($client);
 		

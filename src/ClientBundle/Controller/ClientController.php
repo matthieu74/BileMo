@@ -12,9 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use ClientBundle\Entity\User;
 
 
-/**
- * @Security("is_granted('ROLE_USER')")
- */
+
 class ClientController extends Controller
 {
 	
@@ -28,14 +26,10 @@ class ClientController extends Controller
      *
      * @Doc\ApiDoc(
      *     resource=true,
-     *     description="Create a user."
+     *     description="Create a user.",
      *     input = {
      *         "class" = "ClientBundle\Form\UserType"
      *     },
-     *     parameters = {
-     *         { "name" = "firstname", "dataType" = "string", "format" = "the user's name" },
-     *          { "mail", "dataType" = "string", "format" = "the user's mail" }
-     *     }
      *      statusCodes={
      *         201="Returned when created",
      *         400="Returned when a violation is raised by validation"
@@ -45,7 +39,8 @@ class ClientController extends Controller
 	 */
 	public function addUserAction(User $user)
 	{
-		return $this->get('client_service')->addUser($user);
+		$encoder = $this->get('security.password_encoder');
+		return $this->get('client_service')->addUser($user, $encoder);
 	}
 	
 	

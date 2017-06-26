@@ -1,5 +1,5 @@
 <?php
-namespace BileMoBundle\Form;
+namespace ClientBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,8 +11,9 @@ class UserType extends AbstractType
     {
         $builder
             ->add('id')
-            ->add('name')
+            ->add('username')
             ->add('$mail')
+            ->add('plainPassword') 
             ->add('client', ClientType::class)
 
         ;

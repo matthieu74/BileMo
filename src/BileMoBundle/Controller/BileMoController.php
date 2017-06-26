@@ -8,15 +8,13 @@ use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Nelmio\ApiDocBundle\Annotation as Doc;
 
 
-/**
- * @Security("is_granted('ROLE_USER')")
- */
 class BileMoController extends FOSRestController
 {
     /**
@@ -33,10 +31,9 @@ class BileMoController extends FOSRestController
      * )
      */
 
-*/
+
     public function indexPhonesAction()
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
     	return $this->get("bilemo_service")->getAllPhone();
     }
 
@@ -48,7 +45,7 @@ class BileMoController extends FOSRestController
      *
      * @Doc\ApiDoc(
      *     resource=true,
-     *     description="Create a category of feature."
+     *     description="Create a category of feature.",
      *      statusCodes={
      *         201="Returned when created",
      *         400="Returned when a violation is raised by validation"
