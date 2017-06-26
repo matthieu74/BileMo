@@ -19,8 +19,13 @@ then create the table :
 fill the data base :
 
     php bin/console doctrine:fixtures:load
-
-## 4. How to configure virtual hosts on your localhost
+## 4. How to generate the ssh key
+    
+    mkdir -p app/var/jwt
+    openssl genrsa -out var/jwt/private.pem -aes256 4096
+    openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
+    
+## 5. How to configure virtual hosts on your localhost
 ### 1. we will create a virtual host under the name: "bilemo.dev"
 - in the repository *C:\Windows\System32\drivers\etc*; open “hosts” file with admin privileges and add the following to its end;
 127.0.0.1 *bilemo.dev* 
