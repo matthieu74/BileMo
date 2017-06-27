@@ -1,5 +1,5 @@
 # Installation
-## 1. Défine your parameters
+## 1. Define your parameters
 edit this file `app/config/parameters.yml`
 
 ## 2. Download vendors
