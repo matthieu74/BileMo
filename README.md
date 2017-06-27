@@ -21,7 +21,7 @@ fill the data base :
     php bin/console doctrine:fixtures:load
 ## 4. How to generate the ssh key
     
-    mkdir -p app/var/jwt
+    mkdir -p var/jwt
     openssl genrsa -out var/jwt/private.pem -aes256 4096
     openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
     
