@@ -34,6 +34,8 @@ class Client
 	 *
 	 * @ORM\Column(name="name", type="string", length=255)
 	 * 
+	 * @Assert\NotBlank(message="Please enter a company name")
+	 * 
 	 * @Serializer\Since("1.0")
 	 * @Serializer\Groups({"detail"})
 	 */

@@ -14,9 +14,13 @@ class ClientService
 		$this->fm = $fm;
 	}
 	
-	public function getAllUsers($idClient)
+	public function getAllUsers($user)
 	{
-		return $this->em->getRepository('ClientBundle:User')->findBy(array('client' => $idClient), array('name' => 'ASC'));
+		if ($user instanceof User)
+		{
+			$client = $user->getClient();
+			return $this->em->getRepository('ClientBundle:User')->findBy(array('client' => $client), array('username' => 'ASC'));
+		}
 	}
 	
 	public function getUser($id)
@@ -24,13 +28,21 @@ class ClientService
 		return $this->em->getRepository('ClientBundle:User')->find($id);
 	}
 	
-	public function addUser($user)
+	public function addUser($userToCreate, $encoder, $user)
 	{
-		
-		$client  = $this->em->getRepository('ClientBundle:Client')->find(1);
-		$user->setClient($client);
-		
-		$this->em->persist($user);
-		$this->em->flush();
+		$idClient = -1;
+		if ($user instanceof User)
+		{
+			$client = $user->getClient();
+			$encoded = $encoder->encodePassword($user, $user->getPlainPassword());
+			$user->setPassword($encoded);
+			
+			$user->setClient($client);
+			
+			$this->em->persist($user);
+			$this->em->flush();
+			return $user;
+		}
+		throw new AccessDeniedException('No token given or token is wrong.');
 	}
 }

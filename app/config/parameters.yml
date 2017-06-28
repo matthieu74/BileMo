@@ -10,3 +10,4 @@ parameters:
     mailer_user: null
     mailer_password: null
     secret: 8dcbaea6e56ecea8c21054953dd7fb49f4b505fc
+    jwt_key_pass_phrase: matthieu

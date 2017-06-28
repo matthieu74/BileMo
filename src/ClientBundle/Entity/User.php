@@ -1,6 +1,7 @@
 <?php
 namespace ClientBundle\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -25,9 +26,11 @@ use Hateoas\Configuration\Annotation as Hateoas;
  * 
  */
 
-class User
+class User implements UserInterface
 {
 	/**
+	 * the user's id
+	 * 
 	 * @var int
 	 *
 	 * @ORM\Column(name="id", type="integer")
@@ -40,29 +43,50 @@ class User
 	private $id;
 	
 	/**
+	 * the user's name
+	 * 
 	 * @var string
 	 *
-	 * @ORM\Column(name="name", type="string", length=255)
+	 * @ORM\Column(name="username", type="string", length=255)
 	 * 
-	 * @Assert\NotBlank
+	 * @Assert\NotBlank(message="Please enter a username")
 	 * 
 	 * @Serializer\Since("1.0")
-	 * @Serializer\Groups({"list", "detail"})
+	 * @Serializer\Groups({"list", "detail", "edit"})
 	 * 
 	 */
-	private $name;
+	private $username;
 
     /**
+     * The user's mail
+     * 
      * @var string
      *
-     * @ORM\Column(name="mail", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255,  unique=true)
      * 
-     * @Serializer\Since("2.0")
-     * @Serializer\Groups({"detail"})
+     * @Assert\NotBlank(message="Please enter a email")
+     * 
+   	 * @Serializer\Since("1.0")
+     * @Serializer\Groups({"detail", "edit"})
      */
-    private $mail;
+    private $email;
+    
+    /**
+     * 
+     * The user's password
+     * @ORM\Column(type="string")
+     * 
+     *  @Assert\NotBlank(message="Please enter a password")
+     * 
+     *  @Serializer\Groups({"edit"})
+     */
+    protected $password;
+    
+    protected $plainPassword;
 	
 	/**
+	 * The user's company
+	 * 
 	 * @ORM\ManyToOne(targetEntity="ClientBundle\Entity\Client")
 	 * @ORM\JoinColumn(nullable=false)
 	 * 
@@ -82,33 +106,33 @@ class User
     /**
      * @return string
      */
-    public function getName()
+    public function getUsername()
     {
-        return $this->name;
+        return $this->username;
     }
 
     /**
      * @param string $name
      */
-    public function setName($name)
+    public function setUsername($username)
     {
-        $this->name = $name;
+    	$this->username= $username;
     }
 
     /**
      * @return mixed
      */
-    public function getMail()
+    public function getEmail()
     {
-        return $this->mail;
+        return $this->email;
     }
 
     /**
      * @param mixed $mail
      */
-    public function setMail($mail)
+    public function setEmail($mail)
     {
-        $this->mail = $mail;
+        $this->email = $mail;
     }
 
     /**
@@ -125,6 +149,35 @@ class User
     public function setClient($client)
     {
         $this->client = $client;
+    }
+    
+    
+    public function getPassword()
+    {
+    	return $this->password;
+    }
+    
+    public function setPassword($password)
+    {
+    	$this->password = $password;
+    }
+    
+    
+    public function getRoles()
+    {
+    	return [];
+    }
+    
+    public function getSalt()
+    {
+    	return null;
+    }
+    
+   
+    
+    public function eraseCredentials()
+    {
+    	$this->plainPassword = null;
     }
 
 

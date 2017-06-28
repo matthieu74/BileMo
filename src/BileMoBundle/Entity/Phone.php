@@ -27,6 +27,8 @@ use Hateoas\Configuration\Annotation as Hateoas;
 class Phone
 {
 	/**
+	 * 
+	 * The phone's Id
 	 * @var int
 	 *
 	 * @ORM\Column(name="id", type="integer")
@@ -40,11 +42,14 @@ class Phone
 	private $id;
 	
 	/**
+	 * 
+	 * The phone's name
+	 * 
 	 * @var string
 	 *
 	 * @ORM\Column(name="name", type="string", length=255)
 	 * 
-	 * @Assert\NotBlank
+	 * @Assert\NotBlank(message="Please enter a name")
 	 * 
 	 * @Serializer\Since("1.0")
 	 * @Serializer\Groups({"detail", "list"})
@@ -53,11 +58,14 @@ class Phone
 	private $name;
 
     /**
+     * 
+     * The phone's description
+     * 
      * @var string
      *
      * @ORM\Column(name="description", type="text")
      * 
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Please enter a description")
      * 
      * @Serializer\Since("1.0")
      * @Serializer\Groups({"detail"})
