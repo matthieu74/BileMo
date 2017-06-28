@@ -30,7 +30,7 @@ class JwtTokenAuthenticator extends AbstractGuardAuthenticator
 	public function getCredentials(Request $request)
 	{
 		$extractor = new AuthorizationHeaderTokenExtractor(
-				'Bearer',
+				'BileMo',
 				'Authorization'
 				);
 		
@@ -51,11 +51,11 @@ class JwtTokenAuthenticator extends AbstractGuardAuthenticator
 			throw new CustomUserMessageAuthenticationException('Invalid Token');
 		}
 		
-		$username = $data['username'];
+		$email = $data['email'];
 		
 		return $this->em
 		->getRepository('ClientBundle:User')
-		->findOneBy(['username' => $username]);
+		->findOneBy(['email' => $email]);
 	}
 	
 	public function checkCredentials($credentials, UserInterface $user)

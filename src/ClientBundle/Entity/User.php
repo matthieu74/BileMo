@@ -29,6 +29,8 @@ use Hateoas\Configuration\Annotation as Hateoas;
 class User implements UserInterface
 {
 	/**
+	 * the user's id
+	 * 
 	 * @var int
 	 *
 	 * @ORM\Column(name="id", type="integer")
@@ -41,36 +43,50 @@ class User implements UserInterface
 	private $id;
 	
 	/**
+	 * the user's name
+	 * 
 	 * @var string
 	 *
 	 * @ORM\Column(name="username", type="string", length=255)
 	 * 
-	 * @Assert\NotBlank
+	 * @Assert\NotBlank(message="Please enter a username")
 	 * 
 	 * @Serializer\Since("1.0")
-	 * @Serializer\Groups({"list", "detail"})
+	 * @Serializer\Groups({"list", "detail", "edit"})
 	 * 
 	 */
 	private $username;
 
     /**
+     * The user's mail
+     * 
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255,  unique=true)
      * 
-     * @Serializer\Since("2.0")
-     * @Serializer\Groups({"detail"})
+     * @Assert\NotBlank(message="Please enter a email")
+     * 
+   	 * @Serializer\Since("1.0")
+     * @Serializer\Groups({"detail", "edit"})
      */
     private $email;
     
     /**
+     * 
+     * The user's password
      * @ORM\Column(type="string")
+     * 
+     *  @Assert\NotBlank(message="Please enter a password")
+     * 
+     *  @Serializer\Groups({"edit"})
      */
     protected $password;
     
     protected $plainPassword;
 	
 	/**
+	 * The user's company
+	 * 
 	 * @ORM\ManyToOne(targetEntity="ClientBundle\Entity\Client")
 	 * @ORM\JoinColumn(nullable=false)
 	 * 
@@ -106,17 +122,17 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getMail()
+    public function getEmail()
     {
-        return $this->mail;
+        return $this->email;
     }
 
     /**
      * @param mixed $mail
      */
-    public function setMail($mail)
+    public function setEmail($mail)
     {
-        $this->mail = $mail;
+        $this->email = $mail;
     }
 
     /**
@@ -161,7 +177,6 @@ class User implements UserInterface
     
     public function eraseCredentials()
     {
-    	// Suppression des données sensibles
     	$this->plainPassword = null;
     }
 

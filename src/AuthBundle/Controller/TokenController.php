@@ -2,29 +2,45 @@
 
 namespace AuthBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Nelmio\ApiDocBundle\Annotation as Doc;
 
 
 class TokenController extends FOSRestController
 {
 	/**
-	 * @Route("/tokens")
-	 * @Method("POST")
+	 * @Post(
+	 *    path = "/login",
+	 *    name = "app_tokens_create"
+	 * )
+	 * 
+	 * @View(StatusCode = 201)
+	 * * @Doc\ApiDoc(
+	 *     section="Authentification",
+     *     description="get a jwt token.",
+     *     parameters={
+	 * 			{"name"="login", "dataType"="text area", "required"=true, "description"="the user's email."},
+	 * 			{"name"="password", "dataType"="text area", "required"=true, "description"="the user's password."}
+	 *  	},
+     *      statusCodes={
+     *         201="Returned when created",
+     *         400="Returned when a violation is raised by validation"
+     *     }
+     * )
+	 * 
 	 */
 	public function newTokenAction(Request $request)
 	{
-		$username = $request->request->get('username');
+		$email = $request->request->get('login');
 		$password = $request->request->get('password');
 		$user = $this->getDoctrine()
 		->getRepository('ClientBundle:User')
-		->findOneBy(['username' =>$username]);
-	
+		->findOneBy(['email' =>$email]);
 		if (!$user) {
 			throw $this->createNotFoundException();
 		}
@@ -37,7 +53,7 @@ class TokenController extends FOSRestController
 		}
 		
 		$token = $this->get('lexik_jwt_authentication.encoder')
-		->encode(['username' => $user->getUsername()]);
+		->encode(['email' => $user->getEmail()]);
 		
 		return new JsonResponse(['token' => $token]);
 	}
@@ -60,25 +76,4 @@ class TokenController extends FOSRestController
 		$this->container->get('security.token_storage')->setToken($token);
 	}
 	
-	
-	
-	/**
-	 * Used to find the fixtures user - I use it to cheat in the beginning
-	 *
-	 * @param $username
-	 * @return User
-	 */
-	public function findUserByUsername($username)
-	{
-		return $this->getUserRepository()->findUserByUsername($username);
-	}
-	
-	/**
-	 * @return UserRepository
-	 */
-	protected function getUserRepository()
-	{
-		return $this->getDoctrine()
-		->getRepository('ClientBundle:User');
-	}
 }

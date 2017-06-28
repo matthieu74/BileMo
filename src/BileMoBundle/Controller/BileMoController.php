@@ -2,22 +2,20 @@
 
 namespace BileMoBundle\Controller;
 
-use BileMoBundle\Entity\FeatureCategory;
 use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\FOSRestController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\ConstraintViolationList;
 use Nelmio\ApiDocBundle\Annotation as Doc;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use BileMoBundle\Entity\Phone;
 
 
 class BileMoController extends FOSRestController
 {
     /**
+     * 
+     * Get the list of all phones.
+     * 
      * @Get(
      *     path = "/phones",
      *     name = "app_phones_index",
@@ -26,8 +24,14 @@ class BileMoController extends FOSRestController
      *
      *
      * @Doc\ApiDoc(
+     *     section="Phones",
      *     resource=true,
-     *     description="Get the list of all phones."
+     *     description="Get the list of all phones.",
+     *     output= { "class"=Phone::class, "collection"=true, "groups"={"list"} },
+     *      statusCodes={
+     *         200="Returned when the request is successful",
+     *         401 ="Returned when the user does not have the necessary credentials"
+     *     }
      * )
      */
 
@@ -37,30 +41,7 @@ class BileMoController extends FOSRestController
     	return $this->get("bilemo_service")->getAllPhone();
     }
 
-  
-    /**
-     * @Post("/features/Categories")
-     * @View(StatusCode = 201)
-     * @ParamConverter("featureCat", converter="fos_rest.request_body")
-     *
-     * @Doc\ApiDoc(
-     *     resource=true,
-     *     description="Create a category of feature.",
-     *      statusCodes={
-     *         201="Returned when created",
-     *         400="Returned when a violation is raised by validation"
-     *     }
-     * )
-     */
-    public function createFeatureCategoryAction(FeatureCategory $featureCat, ConstraintViolationList $violations)
-    {
-        
-    	if (count($violations)) {
-    		return $this->view($violations, Response::HTTP_BAD_REQUEST);
-    	}
-    	
-    	return $this->get("bilemo_service")->addFeatureCategoy($featureCat);
-    }
+ 
 
     /**
      * @Get(
@@ -83,8 +64,10 @@ class BileMoController extends FOSRestController
      * @View(serializerGroups={"detail"})
      *
      * @Doc\ApiDoc(
+     * 	   section="Phones",
      *     resource=true,
      *     description="Get one phone with detail.",
+     *     output= { "class"=Phone::class, "collection"=false, "groups"={"detail"} },
      *     requirements={
      *         {
      *             "name"="id",

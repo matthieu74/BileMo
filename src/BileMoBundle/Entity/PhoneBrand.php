@@ -31,6 +31,7 @@ class PhoneBrand
 	 *
 	 * @ORM\Column(name="name", type="string", length=255)
 	 * 
+	 * @Assert\NotBlank(message="Please enter a name")
 	 * @Serializer\Since("1.0")
 	 * @Serializer\Groups({"detail", "list"})
 	 */
@@ -41,6 +42,8 @@ class PhoneBrand
      * @var string
      *
      * @ORM\Column(name="country", type="string", length=255)
+     * 
+     * @Assert\NotBlank(message="Please enter a country")
      * 
      * @Serializer\Since("1.0")
      * @Serializer\Groups({"detail", "list"})

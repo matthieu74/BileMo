@@ -30,6 +30,6 @@ security:
             
     access_control:
         - { path: ^/api/doc, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/tokens, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
         

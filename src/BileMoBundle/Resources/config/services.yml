@@ -2,3 +2,4 @@ services:
     bilemo_service:
         class: BileMoBundle\Models\Service\BileMoService
         arguments: [ "@doctrine.orm.entity_manager", "@form.factory" , "@service_container" ]
+  
