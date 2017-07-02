@@ -2,8 +2,3 @@ services:
     bilemo_service:
         class: BileMoBundle\Models\Service\BileMoService
         arguments: [ "@doctrine.orm.entity_manager", "@form.factory" , "@service_container" ]
-    api_exception_subscriber:
-        class: BileMoBundle\EventListener\ApiExceptionSubscriber
-        arguments: []
-        tags:
-            - { name: kernel.event_subscriber }
