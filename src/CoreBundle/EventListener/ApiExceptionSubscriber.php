@@ -1,9 +1,9 @@
 <?php
 
-namespace BileMoBundle\EventListener;
+namespace CoreBundle\EventListener;
 
-use BileMoBundle\Api\ApiProblem;
-use BileMoBundle\Api\ApiProblemException;
+use CoreBundle\Api\ApiProblem;
+use CoreBundle\Api\ApiProblemException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;

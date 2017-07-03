@@ -42,11 +42,11 @@ class ClientController extends FOSRestController
 	 */
 	public function addUserAction(User $user)
 	{
-		$user = $this->container->get('security.token_storage')->getToken()->getUser();
+		$userConnecter = $this->container->get('security.token_storage')->getToken()->getUser();
 		
 		
 		$encoder = $this->get('security.password_encoder');
-		return $this->get('client_service')->addUser($user, $encoder, $user);
+		return $this->get('client_service')->addUser($user, $encoder, $userConnecter);
 	}
 	
 	

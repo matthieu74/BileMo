@@ -29,19 +29,18 @@ class ClientService
 	}
 	
 	public function addUser($userToCreate, $encoder, $user)
-	{
-		$idClient = -1;
+    {
 		if ($user instanceof User)
 		{
 			$client = $user->getClient();
-			$encoded = $encoder->encodePassword($user, $user->getPlainPassword());
-			$user->setPassword($encoded);
+			$encoded = $encoder->encodePassword($userToCreate, $userToCreate->getPassword());
+            $userToCreate->setPassword($encoded);
+
+            $userToCreate->setClient($client);
 			
-			$user->setClient($client);
-			
-			$this->em->persist($user);
+			$this->em->persist($userToCreate);
 			$this->em->flush();
-			return $user;
+			return $userToCreate;
 		}
 		throw new AccessDeniedException('No token given or token is wrong.');
 	}

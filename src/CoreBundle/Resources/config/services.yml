@@ -1,0 +1,6 @@
+services:
+    api_exception_subscriber:
+        class: CoreBundle\EventListener\ApiExceptionSubscriber
+        arguments: []
+        tags:
+            - { name: kernel.event_subscriber }

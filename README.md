@@ -18,7 +18,7 @@ then create the table :
 
 fill the data base :
 
-    php bin/console doctrine:fixtures:load
+    use the sql script 'bilemo.sql'
 ## 4. How to generate the ssh key
     
     mkdir -p var/jwt

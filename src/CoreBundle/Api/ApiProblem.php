@@ -1,6 +1,6 @@
 <?php
 
-namespace BilemoBundle\Models;
+namespace CoreBundle\Api;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
