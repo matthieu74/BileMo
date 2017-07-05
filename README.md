@@ -19,11 +19,10 @@ then create the table :
 fill the data base :
 
     use the sql script 'bilemo.sql'
-## 4. How to generate the ssh key
+## 4. How to generate the client id et private id
     
-    mkdir -p var/jwt
-    openssl genrsa -out var/jwt/private.pem -aes256 4096
-    openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
+    php bin/console create:oauth:client --grant-type="password" --grant-type="refresh_token"
+    php app/console create:oauth:user --username=123 --password=123 --email=123@123.com --customer=1
     
 ## 5. How to configure virtual hosts on your localhost
 ### 1. we will create a virtual host under the name: "bilemo.dev"
