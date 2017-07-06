@@ -1,4 +1,13 @@
 services:
-  jwt_token_authenticator:
-          class: AuthBundle\Security\JwtTokenAuthenticator
-          autowire: true
+    application_server.command.create_oauth_client:
+        class: AuthBundle\Command\CreateOauthClientCommand
+        arguments:
+            - '@fos_oauth_server.client_manager.default'
+        tags:
+            -  { name: console.command }
+    application_server.command.create_oauth_user:
+        class: AuthBundle\Command\CreateOauthUserCommand
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            -  { name: console.command }

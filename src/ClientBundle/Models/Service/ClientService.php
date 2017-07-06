@@ -2,7 +2,6 @@
 namespace ClientBundle\Models\Service;
 
 use ClientBundle\Entity\User;
-use ClientBundle\Entity\Client;
 
 class ClientService
 {
@@ -18,8 +17,8 @@ class ClientService
 	{
 		if ($user instanceof User)
 		{
-			$client = $user->getClient();
-			return $this->em->getRepository('ClientBundle:User')->findBy(array('client' => $client), array('username' => 'ASC'));
+			$client = $user->getCustomer();
+			return $this->em->getRepository('ClientBundle:User')->findBy(array('customer' => $client), array('username' => 'ASC'));
 		}
 	}
 	
@@ -32,11 +31,11 @@ class ClientService
     {
 		if ($user instanceof User)
 		{
-			$client = $user->getClient();
+			$client = $user->getCustomer();
 			$encoded = $encoder->encodePassword($userToCreate, $userToCreate->getPassword());
             $userToCreate->setPassword($encoded);
 
-            $userToCreate->setClient($client);
+            $userToCreate->setCustomer($client);
 			
 			$this->em->persist($userToCreate);
 			$this->em->flush();
@@ -44,4 +43,5 @@ class ClientService
 		}
 		throw new AccessDeniedException('No token given or token is wrong.');
 	}
+	
 }

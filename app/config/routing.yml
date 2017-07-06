@@ -1,12 +1,6 @@
-core:
-    resource: "@CoreBundle/Resources/config/routing.yml"
-    prefix:   /
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
 
-auth:
-    resource: "@AuthBundle/Controller/"
-    type:     annotation
-    prefix:   /
-    
 client:
     resource: "@ClientBundle/Controller/"
     type:     annotation

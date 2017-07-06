@@ -87,13 +87,13 @@ class User implements UserInterface
 	/**
 	 * The user's company
 	 * 
-	 * @ORM\ManyToOne(targetEntity="ClientBundle\Entity\Client")
+	 * @ORM\ManyToOne(targetEntity="ClientBundle\Entity\Customer")
 	 * @ORM\JoinColumn(nullable=false)
 	 * 
 	 * @Serializer\Since("1.0")
 	 * @Serializer\Groups({"detail"})
 	 */
-	private $client;
+    private $customer;
 
     /**
      * @return int
@@ -138,17 +138,17 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getClient()
+    public function getCustomer()
     {
-        return $this->client;
+    	return $this->customer;
     }
 
     /**
      * @param mixed $client
      */
-    public function setClient($client)
+    public function setCustomer($customer)
     {
-        $this->client = $client;
+    	$this->customer= $customer;
     }
     
     
