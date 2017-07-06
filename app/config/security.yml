@@ -2,34 +2,27 @@ security:
     encoders:
         ClientBundle\Entity\User: bcrypt
 
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
     providers:
-        database_users:
-            entity: { class: ClientBundle:User }
+        user_provider:
+            id: application_server.security.user_provider
 
     firewalls:
-        api:
-            pattern: ^/
-            anonymous: true
-            stateless: true
-            guard:
-                authenticators:
-                    - 'jwt_token_authenticator'
-        main:
-            pattern: ^/login
-            anonymous: true
-            form_login:
-                # The route name that the login form submits to
-                check_path: security_login_check
-                login_path: security_login_form
-            logout:
-                # The route name the user can go to in order to logout
-                path: security_logout
+        oauth_token:
+            pattern:  ^/oauth/v2/token
+            security: false
         api_doc:
             pattern: ^/api/doc
             security: false
-            
+        secured_area:
+            pattern:    ^/
+            fos_oauth:  true
+            stateless:  true
+        
+
     access_control:
         - { path: ^/api/doc, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
-        
+        - { path: ^/, roles: [ IS_AUTHENTICATED_FULLY ] }

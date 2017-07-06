@@ -2,3 +2,11 @@ services:
     client_service:
         class: ClientBundle\Models\Service\ClientService
         arguments: [ "@doctrine.orm.entity_manager", "@form.factory" , "@service_container" ]
+    application_server.repository.user:
+        class: ClientBundle\Repository\UserRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
+        arguments: [ClientBundle\Entity\User]
+    application_server.security.user_provider:
+        class: ClientBundle\Provider\UserProvider
+        arguments:
+            - '@application_server.repository.user'

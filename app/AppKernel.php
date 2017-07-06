@@ -3,6 +3,7 @@
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use FOS\RestBundle\FOSRestBundle;
+use FOS\OAuthServerBundle\FOSOAuthServerBundle;
 use AuthBundle\AuthBundle;
 
 class AppKernel extends Kernel
@@ -21,7 +22,7 @@ class AppKernel extends Kernel
         	new JMS\SerializerBundle\JMSSerializerBundle(),
         	new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
-            new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
+        	new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
             new BileMoBundle\BileMoBundle(),
             new ClientBundle\ClientBundle(),
         	new AuthBundle(),

@@ -19,27 +19,16 @@ class ApiExceptionSubscriber implements EventSubscriberInterface
 		if ($e instanceof ApiProblemException) {
 			$apiProblem = $e->getApiProblem();
 		} else {
-		    if ($e instanceof HttpExceptionInterface)
-			    $statusCode =  $e->getStatusCode();
-		    else if ($e instanceof BadCredentialsException)
-                return $e;
-		    else if ($e instanceof CustomUserMessageAuthenticationException)
-		        return $e;
-		    else
-                $statusCode = 500;
-
+			$statusCode = $e instanceof HttpExceptionInterface ? $e->getStatusCode() : 500;
+			
 			$apiProblem = new ApiProblem(
 					$statusCode
 					);
-
+			
 
 			if ($e instanceof HttpExceptionInterface) {
-                $apiProblem->set('detail', $e->getMessage());
-            }
-            else if ($e instanceof \Exception) {
-                $apiProblem->set('detail', $e->getMessage());
-            }
-
+				$apiProblem->set('detail', $e->getMessage());
+			}
 		}
 		
 		$response = new JsonResponse(

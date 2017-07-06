@@ -9,10 +9,9 @@ use FOS\RestBundle\Controller\FOSRestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Nelmio\ApiDocBundle\Annotation as Doc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\HttpFoundation\Response;
 use ClientBundle\Entity\User;
-use ClientBundle\Entity\Client;
-
-
 
 class ClientController extends FOSRestController
 {
@@ -40,8 +39,13 @@ class ClientController extends FOSRestController
      * )
      *
 	 */
-	public function addUserAction(User $user)
+	public function addUserAction(User $user, ConstraintViolationList $violations)
 	{
+		
+		if (count($violations)) {
+			return $this->view($violations, Response::HTTP_BAD_REQUEST);
+		}
+		
 		$userConnecter = $this->container->get('security.token_storage')->getToken()->getUser();
 		
 		

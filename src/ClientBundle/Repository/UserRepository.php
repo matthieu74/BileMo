@@ -10,4 +10,15 @@ namespace ClientBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+	
+	public function findUserByUsername($username)
+	{
+		return
+		$this->createQueryBuilder('u')
+		->where('u.username = :username')
+		->setParameter('username', $username)
+		->getQuery()
+		->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
+		->getOneOrNullResult(Query::HYDRATE_SIMPLEOBJECT);
+	}
 }
