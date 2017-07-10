@@ -19,16 +19,6 @@ class BileMoService
 		return $this->em->getRepository('BileMoBundle:Phone')->findBy(array(), array('name' => 'ASC'));
 	}
 	
-	public function addFeatureCategoy($featureCategory)
-    {
-      	$this->em->persist($featureCategory);
-        $this->em->flush();
-    }
-    
-    public function getAllFeaturesCategories()
-    {
-    	return $this->em->getRepository('BileMoBundle:FeatureCategory')->findBy(array(), array('name' => 'ASC'));
-    }
     
     public function getDetailPhone($id)
     {

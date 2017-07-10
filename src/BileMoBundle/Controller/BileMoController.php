@@ -41,21 +41,7 @@ class BileMoController extends FOSRestController
     	return $this->get("bilemo_service")->getAllPhone();
     }
 
- 
-
-    /**
-     * @Get(
-     *     path = "/features/Categories",
-     *     name = "app_features_categories_index",
-     * )
-     * @View(serializerGroups={"detail"})
-     */
-    public function indexFeaturesCategoriesAction()
-    {
-        return $this->get("bilemo_service")->getAllFeaturesCategories();
-    }
-
-    /**
+     /**
      * @Get(
      *     path = "/phones/{id}",
      *     name = "app_phones_detail",
